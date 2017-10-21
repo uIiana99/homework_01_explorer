@@ -21,7 +21,7 @@ int main(int argc, char const *argv[]) {
 
         if(!fs::exists(path)) throw logic_error("do not found any files");
 
-        const fs::path filePath = fs::current_path() / path;
+        const fs::path filePath = path;
 
         //  Получаем имя файла file.dat.
         const fs::path textFilename = filePath.filename();
@@ -41,7 +41,7 @@ int main(int argc, char const *argv[]) {
         session << "size:\t" << fileSize << " Kb" << endl;
         session << "date:\t" << std::asctime(std::localtime(&cftime)) << endl;
 
-    } catch(const std::exception& e) {
+    } catch(const exception& e) {
         cout << e.what() << endl;
     } 
 
