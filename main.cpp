@@ -3,6 +3,9 @@
 #include <experimental/filesystem>
 #include <cstring>
 
+//  export EXPLORER_LOG_PATH="log.txt"
+//  g++-7 main.cpp -lstdc++fs  -o open && ./open explorer/file.dat
+
 namespace fs = std::experimental::filesystem;
 using namespace std;
 
@@ -29,9 +32,10 @@ int main(int argc, char const *argv[]) {
         if(!fs::exists(path)) throw logic_error("do not found any files");
 
         //  Проверка существования файла log.txt
-        if(!fs::exists("./log.txt")) {
+        
+        if(!fs::exists(getenv("EXPLORER_LOG_PATH"))) {
             //  Создаем файл log.txt
-            ofstream ofs("log.txt");
+            ofstream ofs(getenv("EXPLORER_LOG_PATH"));
             ofs << "the record of modifications:" << endl << endl;
             ofs.close();
         }
@@ -50,7 +54,7 @@ int main(int argc, char const *argv[]) {
         fileSize /= 1000;
 
         //  Вывод в конец файла.
-        ofstream session("./log.txt", ios_base::app);
+        ofstream session((getenv("EXPLORER_LOG_PATH")), ios_base::app);
 
         session << "name:\t" << textFilename << endl;
         session << "size:\t" << fileSize << " Kb" << endl;
@@ -64,4 +68,3 @@ int main(int argc, char const *argv[]) {
 
     return 0;
 }
-
