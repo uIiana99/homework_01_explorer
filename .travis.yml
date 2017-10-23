@@ -39,8 +39,10 @@ before_script:
   - $CXX --version
 
   - cd ..
+  - export EXPLORER_LOG_PATH="log.txt"
   - cmake -H. -BBuild -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
   - cd Build
 
 script:
+  - export EXPLORER_LOG_PATH="log.txt"
   - make -j 2
